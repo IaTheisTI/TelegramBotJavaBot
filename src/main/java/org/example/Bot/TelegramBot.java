@@ -38,7 +38,7 @@ public class TelegramBot extends TelegramLongPollingBot {
             String text = message.getText();
             SendMessage sendMessage = new SendMessage();
             if (text.equals("/start")) {
-                sendMessage.setText("Hello, I'm Giggle!");
+                sendMessage.setText("Првиет!");
                 sendMessage.setChatId(message.getChatId());
 
                 ReplyKeyboardMarkup replyKeyboardMarkup = new ReplyKeyboardMarkup();
