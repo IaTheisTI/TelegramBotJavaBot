@@ -2,6 +2,7 @@ package org.example.Bot;
 
 
 import org.example.Commands;
+import org.example.question.*;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
@@ -15,7 +16,19 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class TelegramBot extends TelegramLongPollingBot {
+
+    private final AbstractQuestion[] questions;
+
+
+    public TelegramBot() {
+        questions = new AbstractQuestion[4];
+        questions[0] = new VideoQuestion();
+        questions[1] = new WindowsQuestion();
+        questions[2] = new ProgrammQuestion();
+        questions[3] = new PingQuestion();
+    }
 
     @Override
     public String getBotUsername() {
@@ -29,7 +42,7 @@ public class TelegramBot extends TelegramLongPollingBot {
 
     @Override
     public void onUpdateReceived(Update update) {
-        String[] listCommand = {"/question: запуск игры", "/exit: завершить работу"};
+        String[] listCommand = {"/start: привет", "/question: запуск игры", "/stop: завершить игру"};
         Message message = update.getMessage();
         String answer = "";
         Long chatID = message.getChatId();
@@ -38,7 +51,7 @@ public class TelegramBot extends TelegramLongPollingBot {
             String text = message.getText();
             SendMessage sendMessage = new SendMessage();
             if (text.equals("/start")) {
-                sendMessage.setText("Првиет!");
+                sendMessage.setText("Привет! Я Telegram Bot написанный на Java");
                 sendMessage.setChatId(message.getChatId());
 
                 ReplyKeyboardMarkup replyKeyboardMarkup = new ReplyKeyboardMarkup();
@@ -63,6 +76,12 @@ public class TelegramBot extends TelegramLongPollingBot {
                     e.printStackTrace();
                 }
             }
+
+//            else if (text.equals("/question")) {
+//                sendMessage.setText("Добро пожаловать в игру \"вопрос - ответ\"! ");
+//                sendMessage.setText(questions[0].getQuestion());
+//
+//            }
 
             else {
                 String chatIDString = chatID.toString();

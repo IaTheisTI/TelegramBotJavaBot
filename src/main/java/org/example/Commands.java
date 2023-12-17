@@ -7,6 +7,8 @@ public class Commands {
         switch (request) {
             case("/question"):
                 return "Добро пожаловать в игру \"вопрос - ответ\"! ";
+            case("/stop"):
+                return  "Завершение игры \"вопрос - ответ\"! ";
             default:
                 return "Я вас не понимаю";
         }
