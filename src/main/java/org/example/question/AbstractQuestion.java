@@ -10,6 +10,7 @@ public abstract class AbstractQuestion {
     }
 
     public String getQuestion(){
+        System.out.println(question);
         return question;
     }
 

@@ -19,17 +19,6 @@ import java.util.List;
 
 public class TelegramBot extends TelegramLongPollingBot {
 
-    private final AbstractQuestion[] questions;
-
-
-    public TelegramBot() {
-        questions = new AbstractQuestion[4];
-        questions[0] = new VideoQuestion();
-        questions[1] = new WindowsQuestion();
-        questions[2] = new ProgrammQuestion();
-        questions[3] = new PingQuestion();
-    }
-
     @Override
     public String getBotUsername() {
         return "offtimingbot";
@@ -67,8 +56,8 @@ public class TelegramBot extends TelegramLongPollingBot {
                 }
 
                 replyKeyboardMarkup.setKeyboard(keyboardRowList);
-                replyKeyboardMarkup.setOneTimeKeyboard(true); // Установка флага OneTimeKeyboard в true
-                sendMessage.setReplyMarkup(replyKeyboardMarkup); // Установка клавиатуры
+                replyKeyboardMarkup.setOneTimeKeyboard(true);
+                sendMessage.setReplyMarkup(replyKeyboardMarkup);
 
                 try {
                     execute(sendMessage);
@@ -77,11 +66,6 @@ public class TelegramBot extends TelegramLongPollingBot {
                 }
             }
 
-//            else if (text.equals("/question")) {
-//                sendMessage.setText("Добро пожаловать в игру \"вопрос - ответ\"! ");
-//                sendMessage.setText(questions[0].getQuestion());
-//
-//            }
 
             else {
                 String chatIDString = chatID.toString();
