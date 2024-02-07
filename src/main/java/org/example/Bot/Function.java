@@ -6,15 +6,17 @@ import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import java.util.concurrent.ConcurrentHashMap;
 
-public class FunctionQuestion extends TelegramLongPollingBot {
+public class Function extends TelegramLongPollingBot {
 
     private final AbstractQuestion[] questions;
     private final ConcurrentHashMap<Long, UserData> users;
 
-    public FunctionQuestion() {
+    public Function() {
         questions = new AbstractQuestion[4];
         questions[0] = new VideoQuestion();
         questions[1] = new WindowsQuestion();
@@ -44,6 +46,13 @@ public class FunctionQuestion extends TelegramLongPollingBot {
         return "6132329633:AAGwTqA0KEvSdAE17sMtou8vxly6uHlfTNE";
     }
 
+
+    private String getCurrentTime() {
+        LocalDateTime currentTime = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+        return currentTime.format(formatter);
+    }
+
     @Override
     public void onUpdateReceived(Update update) {
         var message = update.getMessage();
@@ -59,6 +68,7 @@ public class FunctionQuestion extends TelegramLongPollingBot {
             sendText(userId, "Я Telegram Bot, который поможет тебе решить простые арифметические задачи, а также могу предложить интересную игру!");
             sendText(userId, "Для вызова помощника для простых задач напиши /arithmetical");
             sendText(userId, "Для вызова игры воспользуйся командой /question");
+            sendText(userId, "Для того, чтобы узнать время напишите команду /time");
         } else if (text.equals("/question")) {
             sendText(userId, "Добро пожаловать в игру \"вопрос - ответ\"!");
             sendText(userId, questions[0].getQuestion());
@@ -70,6 +80,9 @@ public class FunctionQuestion extends TelegramLongPollingBot {
             sendText(userId, "Для подсчёта ответа напишите /answer, а далее пример, который требуется решить");
         } else if (text.startsWith("/answer")) {
             handleArithmeticQuestion(userId, text);
+        } else if (text.equals("/time")) {
+            String currentTime = getCurrentTime();
+            sendText(userId, "Current Time: " + currentTime);
         } else if (text.startsWith("/")) {
             sendText(userId, "Неправильная команда. Попробуйте ещё раз или воспользуйтесь /help.");
         } else {
