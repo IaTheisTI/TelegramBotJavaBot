@@ -2,12 +2,12 @@ package org.example.question;
 
 public class VideoQuestion extends AbstractQuestion {
     public VideoQuestion() {
-        super("Сколько нужно видеопамяти (мб) для минимальных настроек " +
-                "Quake III Arena (процессор Pentium 233 Мгц)?");
+        super("I5 12400 cpu z оснащен ... вычислительными ядрами, " +
+                "которые могут обрабатывать до 20 потоков параллельно");
     }
 
     @Override
     public boolean checkAnswer(String answer) {
-        return answer.equals("8");
+        return answer.equals("12");
     }
 }

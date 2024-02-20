@@ -18,10 +18,10 @@ public class Function extends TelegramLongPollingBot {
 
     public Function() {
         questions = new AbstractQuestion[4];
-        questions[0] = new VideoQuestion();
+        questions[0] = new PingQuestion();
         questions[1] = new WindowsQuestion();
         questions[2] = new ProgrammQuestion();
-        questions[3] = new PingQuestion();
+        questions[3] = new VideoQuestion();
         users = new ConcurrentHashMap<>();
     }
 
